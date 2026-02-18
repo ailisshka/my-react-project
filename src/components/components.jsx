@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/home'; 
-
 function App() {
   return (
     <BrowserRouter>
@@ -13,16 +12,13 @@ function App() {
           {/* Главная страница */}
           <Route path="/" element={<Home />} />
           
-          <Route path="/login" element={<login />} />
-          <Route path="/courses" element={<courses />} />
-          <Route path="/profile" element={<profile />} />
-          <Route path="/vocabulary" element={<vocabulary />} />
+          {/* Заглушки для будущих страниц (пока просто текст) */}
+          <Route path="/login" element={<h1>Страница входа</h1>} />
+          <Route path="/register" element={<h1>Страница регистрации</h1>} />
         </Routes>
       </div>
     </BrowserRouter>
   );
 }
-
-
 
 export default App;
