@@ -1,33 +1,36 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from './components/Navbar';
-import Home from './pages/home';
+import MainLayout from "./layouts/MainLayout.jsx";
+import Home from "./pages/HomeTest.jsx";
+import Login from "./pages/LoginTest.jsx";
+import Register from "./pages/Register.jsx";
+import Profile from "./pages/ProfileTest.jsx";
+import Lessons from "./pages/Lessons.jsx";
+import Dictionary from "./pages/Dictionary.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 function App() {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-  };
-
   return (
     <Router>
-      <Navbar user={user} onLogout={logout} />
-      
       <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/login" element={<h2>Страница входа (в разработке)</h2>} />
-        <Route path="/lessons" element={<h2>Твои уроки</h2>} />
-        <Route path="/words" element={<h2>Словарь</h2>} />
-        <Route path="/profile" element={<h2>Твой профиль</h2>} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="lessons" element={<Lessons />} />
+          <Route path="dictionary" element={<Dictionary />} />
+          <Route path="profile" element={<Profile />} />
+          
+
+          {/* <Route
+            path="profile"
+            element={
+              <PrivateRoute>
+                <Profile/>
+              </PrivateRoute>
+            } */}
+          {/* /> */}
+        </Route>
       </Routes>
     </Router>
   );

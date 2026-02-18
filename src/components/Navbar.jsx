@@ -1,69 +1,73 @@
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+// Импортируем твой логотип. 
+// Убедись, что файл logo.jpg лежит в папке src/assets/ или рядом с компонентом
+import logoImg from '../assets/logo.jpg'; 
 
-function Navbar({ user, onLogout }) {
+const Navbar = () => {
+  const auth = useContext(AuthContext);
+  const user = auth?.user || null;
+  const logout = auth?.logout || (() => {});
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   const navStyle = {
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '10px 50px',
-    background: '#ffffff',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-    fontFamily: 'sans-serif'
-  };
-
-  const logoContainer = {
-    display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    textDecoration: 'none',
-    color: '#333',
-    fontWeight: 'bold',
-    fontSize: '1.2rem'
-  };
-
-  const linkStyle = {
-    textDecoration: 'none',
-    color: '#555',
-    fontWeight: '500',
-    transition: 'color 0.3s'
+    padding: '0 40px',
+    height: '70px',
+    backgroundColor: '#2c3e50',
+    color: 'white',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
   };
 
   return (
     <nav style={navStyle}>
-      <Link to="/" style={logoContainer}>
-        <img src="/logo.jpg" alt="Logo" style={{ width: '40px', height: '40px', borderRadius: '8px' }} />
-        <span>EnglishLearner</span>
-      </Link>
-
-      <div style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
-        <Link path="/" style={linkStyle}>Главная</Link>
-        <Link to="/lessons" style={linkStyle}>Уроки</Link>
-        <Link to="/words" style={linkStyle}>Словарь</Link>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* ВОТ ТВОЙ ЛОГОТИП */}
+        <img 
+          src={logoImg} 
+          alt="Logo" 
+          style={{ height: '45px', width: 'auto', borderRadius: '5px' }} 
+        />
+        <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+          English<span style={{ color: '#3498db' }}>Learner</span>
+        </span>
+      </div>
+      
+      <ul style={{ display: 'flex', gap: '25px', listStyle: 'none', margin: 0, padding: 0 }}>
+        <li><Link to="/" style={{ color: 'white', textDecoration: 'none' }}>Главная</Link></li>
+        <li><Link to="/lessons" style={{ color: 'white', textDecoration: 'none' }}>Уроки</Link></li>
+        <li><Link to="/dictionary" style={{ color: 'white', textDecoration: 'none' }}>Словарь</Link></li>
         
         {user ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <Link to="/profile" style={{...linkStyle, color: '#4A90E2'}}>👤 {user.username}</Link>
-            <button onClick={onLogout} style={{
-              padding: '8px 15px',
-              borderRadius: '20px',
-              border: 'none',
-              background: '#ff4d4f',
-              color: 'white',
-              cursor: 'pointer'
-            }}>Выйти</button>
-          </div>
+          <>
+            <li><Link to="/profile" style={{ color: 'white', textDecoration: 'none' }}>Профиль</Link></li>
+            <li>
+              <button 
+                onClick={handleLogout} 
+                style={{ background: '#e74c3c', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer' }}
+              >
+                Выйти
+              </button>
+            </li>
+          </>
         ) : (
-          <Link to="/login" style={{
-            padding: '8px 20px',
-            borderRadius: '20px',
-            background: '#4A90E2',
-            color: 'white',
-            textDecoration: 'none'
-          }}>Войти</Link>
+          <li>
+            <Link to="/login" style={{ color: 'white', textDecoration: 'none', background: '#3498db', padding: '8px 15px', borderRadius: '5px' }}>
+              Войти
+            </Link>
+          </li>
         )}
-      </div>
+      </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;
