@@ -12,11 +12,9 @@ const Register = () => {
     
     const newUser = { name: name };
     
-    // Сохраняем данные
     setSavedUser(newUser);
     if (login) login(newUser);
 
-    // ЖЕСТКИЙ ПЕРЕХОД (сработает даже если роутер тупит)
     window.location.href = '/profile'; 
   };
 

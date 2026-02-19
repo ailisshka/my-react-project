@@ -33,5 +33,4 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-// 3. Экспортируем Провайдер по умолчанию — это вылечит ошибку Vite
 export default AuthProvider;

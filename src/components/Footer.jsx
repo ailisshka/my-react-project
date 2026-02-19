@@ -8,4 +8,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; // ПРОВЕРЬ ЭТУ СТРОКУ!
+export default Footer; 

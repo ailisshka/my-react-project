@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-// Импортируем твой логотип. 
-// Убедись, что файл logo.jpg лежит в папке src/assets/ или рядом с компонентом
 import logoImg from '../assets/logo.jpg'; 
 
 const Navbar = () => {
@@ -30,7 +28,7 @@ const Navbar = () => {
   return (
     <nav style={navStyle}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        {/* ВОТ ТВОЙ ЛОГОТИП */}
+        {/* {для логотипа} */}
         <img 
           src={logoImg} 
           alt="Logo" 
